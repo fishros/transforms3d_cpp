@@ -4,7 +4,8 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/usr/include/eigen3/**"
+                "/usr/include/eigen3/**",
+                "/opt/ros/melodic/**"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/clang",

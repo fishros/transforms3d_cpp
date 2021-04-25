@@ -3,6 +3,7 @@
 #include "iostream"
 using namespace Eigen;
 
+
 class TransForms
 {
 private:
@@ -16,7 +17,7 @@ public:
 
     /*---------------------------------------欧拉角部分----------------------------------------*/
     /*欧拉角转旋转矩阵*/
-    ystatic Matrix3d Euler2Mat(double rx, double ry, double rz);
+    static Matrix3d Euler2Mat(double rx, double ry, double rz);
 
     /*角度制欧拉角转旋转矩阵*/
     static Matrix3d EulerAngle2Mat(double rx, double ry, double rz);
@@ -51,6 +52,7 @@ public:
     static Matrix4d Compose(Vector3d positon,Quaterniond quat);
     /*通过三个位置和三个欧拉角合成一个齐次矩阵*/
     static Matrix4d ComposeEuler(double x,double y,double z,double rx, double ry,double rz);
+    static VectorXd H2EulerAngle(Matrix4d t);
 
     TransForms(/* args */) = default;
     ~TransForms() = default;

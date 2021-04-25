@@ -1,0 +1,12 @@
+[35m[1mScanning dependencies of target handeyetf[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/handeyetf.dir/src/main.cpp.o[0m
+[01m[K/home/zhuxz/code/learn/matrix/test/pubtf/src/handeyetf/src/main.cpp:[m[K In function ‘[01m[Kint main(int, char**)[m[K’:
+[01m[K/home/zhuxz/code/learn/matrix/test/pubtf/src/handeyetf/src/main.cpp:32:52:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K,[m[K’ token
+         send_opendoor_tf(br, -2.48,15.66,300,0,0,0,[01;31m[K,[m[K "bootle","camera");
+                                                    [01;31m[K^[m[K
+CMakeFiles/handeyetf.dir/build.make:62: recipe for target 'CMakeFiles/handeyetf.dir/src/main.cpp.o' failed
+make[2]: *** [CMakeFiles/handeyetf.dir/src/main.cpp.o] Error 1
+CMakeFiles/Makefile2:67: recipe for target 'CMakeFiles/handeyetf.dir/all' failed
+make[1]: *** [CMakeFiles/handeyetf.dir/all] Error 2
+Makefile:140: recipe for target 'all' failed
+make: *** [all] Error 2

@@ -1,0 +1,54 @@
+[01m[K/home/zhuxz/code/learn/matrix/test/pubtf/src/handeyetf/src/main.cpp:[m[K In function ‘[01m[Kvoid send_opendoor_tf(float, float, float, float, float, float, const string&, const string&)[m[K’:
+[01m[K/home/zhuxz/code/learn/matrix/test/pubtf/src/handeyetf/src/main.cpp:8:5:[m[K [01;31m[Kerror: [m[K‘[01m[Ktf[m[K’ has not been declared
+     [01;31m[Ktf[m[K::Transform transform;
+     [01;31m[K^~[m[K
+[01m[K/home/zhuxz/code/learn/matrix/test/pubtf/src/handeyetf/src/main.cpp:9:15:[m[K [01;31m[Kerror: [m[Koverloaded function with no contextual type information
+     transform.[01;31m[KsetOrigin[m[K(tf::Vector3(x, y, z));
+               [01;31m[K^~~~~~~~~[m[K
+[01m[K/home/zhuxz/code/learn/matrix/test/pubtf/src/handeyetf/src/main.cpp:9:25:[m[K [01;31m[Kerror: [m[K‘[01m[Ktf[m[K’ has not been declared
+     transform.setOrigin([01;31m[Ktf[m[K::Vector3(x, y, z));
+                         [01;31m[K^~[m[K
+[01m[K/home/zhuxz/code/learn/matrix/test/pubtf/src/handeyetf/src/main.cpp:11:5:[m[K [01;31m[Kerror: [m[K‘[01m[Ktf[m[K’ has not been declared
+     [01;31m[Ktf[m[K::Quaternion q;
+     [01;31m[K^~[m[K
+[01m[K/home/zhuxz/code/learn/matrix/test/pubtf/src/handeyetf/src/main.cpp:12:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kq[m[K’ was not declared in this scope
+     [01;31m[Kq[m[K.setRPY(roll, pitch, yall);
+     [01;31m[K^[m[K
+[01m[K/home/zhuxz/code/learn/matrix/test/pubtf/src/handeyetf/src/main.cpp:14:15:[m[K [01;31m[Kerror: [m[Koverloaded function with no contextual type information
+     transform.[01;31m[KsetRotation[m[K(q);
+               [01;31m[K^~~~~~~~~~~[m[K
+[01m[K/home/zhuxz/code/learn/matrix/test/pubtf/src/handeyetf/src/main.cpp:17:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kbr[m[K’ was not declared in this scope
+     [01;31m[Kbr[m[K.sendTransform(tf::StampedTransform(transform, ros::Time::now(), frame_id, child_frame_id));
+     [01;31m[K^~[m[K
+[01m[K/home/zhuxz/code/learn/matrix/test/pubtf/src/handeyetf/src/main.cpp:17:5:[m[K [01;36m[Knote: [m[Ksuggested alternative: ‘[01m[Kbrk[m[K’
+     [01;36m[Kbr[m[K.sendTransform(tf::StampedTransform(transform, ros::Time::now(), frame_id, child_frame_id));
+     [01;36m[K^~[m[K
+     [32m[Kbrk[m[K
+[01m[K/home/zhuxz/code/learn/matrix/test/pubtf/src/handeyetf/src/main.cpp:17:22:[m[K [01;31m[Kerror: [m[K‘[01m[Ktf[m[K’ has not been declared
+     br.sendTransform([01;31m[Ktf[m[K::StampedTransform(transform, ros::Time::now(), frame_id, child_frame_id));
+                      [01;31m[K^~[m[K
+[01m[K/home/zhuxz/code/learn/matrix/test/pubtf/src/handeyetf/src/main.cpp:[m[K In function ‘[01m[Kint main()[m[K’:
+[01m[K/home/zhuxz/code/learn/matrix/test/pubtf/src/handeyetf/src/main.cpp:23:22:[m[K [01;31m[Kerror: [m[Kno matching function for call to ‘[01m[Kinit(const char [6])[m[K’
+     ros::init("tfpub"[01;31m[K)[m[K;
+                      [01;31m[K^[m[K
+In file included from [01m[K/opt/ros/melodic/include/ros/node_handle.h:47:0[m[K,
+                 from [01m[K/opt/ros/melodic/include/ros/ros.h:45[m[K,
+                 from [01m[K/home/zhuxz/code/learn/matrix/test/pubtf/src/handeyetf/src/main.cpp:2[m[K:
+[01m[K/opt/ros/melodic/include/ros/init.h:83:18:[m[K [01;36m[Knote: [m[Kcandidate: void ros::init(int&, char**, const string&, uint32_t)
+ ROSCPP_DECL void [01;36m[Kinit[m[K(int &argc, char **argv, const std::string& name, uint32_t options = 0);
+                  [01;36m[K^~~~[m[K
+[01m[K/opt/ros/melodic/include/ros/init.h:83:18:[m[K [01;36m[Knote: [m[K  candidate expects 4 arguments, 1 provided
+In file included from [01m[K/opt/ros/melodic/include/ros/node_handle.h:47:0[m[K,
+                 from [01m[K/opt/ros/melodic/include/ros/ros.h:45[m[K,
+                 from [01m[K/home/zhuxz/code/learn/matrix/test/pubtf/src/handeyetf/src/main.cpp:2[m[K:
+[01m[K/opt/ros/melodic/include/ros/init.h:93:18:[m[K [01;36m[Knote: [m[Kcandidate: void ros::init(const M_string&, const string&, uint32_t)
+ ROSCPP_DECL void [01;36m[Kinit[m[K(const M_string& remappings, const std::string& name, uint32_t options = 0);
+                  [01;36m[K^~~~[m[K
+[01m[K/opt/ros/melodic/include/ros/init.h:93:18:[m[K [01;36m[Knote: [m[K  candidate expects 3 arguments, 1 provided
+[01m[K/opt/ros/melodic/include/ros/init.h:103:18:[m[K [01;36m[Knote: [m[Kcandidate: void ros::init(const VP_string&, const string&, uint32_t)
+ ROSCPP_DECL void [01;36m[Kinit[m[K(const VP_string& remapping_args, const std::string& name, uint32_t options = 0);
+                  [01;36m[K^~~~[m[K
+[01m[K/opt/ros/melodic/include/ros/init.h:103:18:[m[K [01;36m[Knote: [m[K  candidate expects 3 arguments, 1 provided
+make[2]: *** [CMakeFiles/handeyetf.dir/src/main.cpp.o] Error 1
+make[1]: *** [CMakeFiles/handeyetf.dir/all] Error 2
+make: *** [all] Error 2

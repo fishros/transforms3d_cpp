@@ -1,0 +1,4 @@
+[35m[1mScanning dependencies of target handeyetf[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/handeyetf.dir/src/main.cpp.o[0m
+[100%] [32m[1mLinking CXX executable /home/zhuxz/code/learn/matrix/test/pubtf/devel/.private/handeyetf/lib/handeyetf/handeyetf[0m
+[100%] Built target handeyetf

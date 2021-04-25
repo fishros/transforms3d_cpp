@@ -1,0 +1,6 @@
+/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o：在函数‘_start’中：
+(.text+0x20)：对‘main’未定义的引用
+collect2: error: ld returned 1 exit status
+make[2]: *** [/home/zhuxz/code/learn/matrix/test/pubtf/devel/.private/handeyetf/lib/handeyetf/handeyetf] Error 1
+make[1]: *** [CMakeFiles/handeyetf.dir/all] Error 2
+make: *** [all] Error 2

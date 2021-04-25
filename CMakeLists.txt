@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.4.1)
 project(TransForms)
 
 find_package(Eigen3 REQUIRED)
+find_package(roscpp REQUIRED)
 include_directories(
     ${EIGEN3_INCLUDE_DIR}
     include

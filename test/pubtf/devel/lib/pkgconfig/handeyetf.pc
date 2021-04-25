@@ -1,0 +1,1 @@
+/home/zhuxz/code/learn/matrix/test/pubtf/devel/.private/handeyetf/lib/pkgconfig/handeyetf.pc
