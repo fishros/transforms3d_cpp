@@ -16,7 +16,7 @@ public:
 
     /*---------------------------------------欧拉角部分----------------------------------------*/
     /*欧拉角转旋转矩阵*/
-    static Matrix3d Euler2Mat(double rx, double ry, double rz);
+    ystatic Matrix3d Euler2Mat(double rx, double ry, double rz);
 
     /*角度制欧拉角转旋转矩阵*/
     static Matrix3d EulerAngle2Mat(double rx, double ry, double rz);

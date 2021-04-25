@@ -74,7 +74,7 @@ Matrix3d TransForms::EulerAngle2Mat(Vector3d eular)
 Matrix4d TransForms::Compose(Vector3d positon, Vector3d rotEular)
 {
     Matrix3d rot = TransForms::EulerAngle2Mat(rotEular);
-    std::cout<<Mat2EulerAngle(rot);
+    // std::cout<<Mat2EulerAngle(rot);
     Matrix4d t ;
     t.setIdentity();
     t.block<3,3>(0,0) = rot;
