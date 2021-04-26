@@ -1,8 +1,0 @@
-prefix=/home/zhuxz/code/learn/matrix/test/pubtf/devel/.private/handeyetf
-
-Name: handeyetf
-Description: Description of handeyetf
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

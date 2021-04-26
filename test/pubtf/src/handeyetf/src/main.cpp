@@ -27,12 +27,13 @@ int main(int argc, char **argv)
     ros::Rate rate = ros::Rate(10);
     while (ros::ok())
     {
-        send_opendoor_tf(br, 3.000006, -279.999992, 375, 180, 0.000001, -135, "base", "grapper");
-        send_opendoor_tf(br, 3,-343,163.6,180,0,-135, "base", "bootle");
-        send_opendoor_tf(br, 2.48,-15.66,-300,0,0,0, "bootle","camera");
+        send_opendoor_tf(br, 0,0, 0, 0, 0, 45, "world", "base");
+        send_opendoor_tf(br, 3.000006, -279.999992, 375, 180, 0.000001, -90, "base", "grapper");
+        send_opendoor_tf(br, 55.5,-55.5,-105.97,0,0,45, "grapper","camera");
+        send_opendoor_tf(br, -2.48,15.66,300,0,0,-45, "camera","bootle");
+        // send_opendoor_tf(br, 3,-343,163.6,180,0,-135, "base", "bootle");
         rate.sleep();
     }
     ros::spin();
-
     return 0;
 }
