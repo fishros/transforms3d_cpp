@@ -1,17 +1,34 @@
 cmake_minimum_required(VERSION 3.4.1)
-
 project(TransForms)
+set(LIB_VERSION 0.1.0)
+set(LIB_NAME  transforms3d_cpp_${LIB_VERSION})
 
 find_package(Eigen3 REQUIRED)
-find_package(roscpp REQUIRED)
 include_directories(
     ${EIGEN3_INCLUDE_DIR}
     include
 )
+
+add_library(${LIB_NAME}
+    SHARED
+    TransForms.cpp
+)
+
 add_executable(${PROJECT_NAME} 
     main.cpp
     TransForms.cpp
 )
-target_link_libraries(${PROJECT_NAME} 
-    pthread
-)
+
+
+install (TARGETS ${LIB_NAME}
+    LIBRARY DESTINATION lib)
+
+install(DIRECTORY include/  
+DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
+
+install(
+    TARGETS spdlog spdlog_header_only
+    EXPORT spdlog
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
