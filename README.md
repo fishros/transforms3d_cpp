@@ -6,19 +6,38 @@
 - 持续更新中..........
 
 ## 一、安装与使用
-1. 目前仅支持源码安装使用
+### 1.源码引入
+
+复制TransForms.cpp和TransForms.h到你的工程即可
+
+### 2.编译安装
+
+```
+git clone https://gitee.com/ohhuo/transforms3d_cpp.git
+cd transforms3d_cpp
+mkdir build 
+cd build
+cmake ..
+make
+sudo make install
+sudo ldconfig
+```
+
+
+
 
 
 
 ## 二、 函数列表
 
 ### 1.基础部分
-
 #### 1.1 角度转换
-
 #### 1.2 欧拉角部分
 #### 1.3 四元数部分
 #### 1.4 齐次矩阵部分
+
+
+
 
 
 
