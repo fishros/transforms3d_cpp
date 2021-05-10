@@ -5,6 +5,12 @@
 - 实现通过齐次矩阵合成与部分转换
 - 持续更新中..........
 
+
+
+Git：[仓库地址](https://gitee.com/ohhuo/transforms3d_cpp) | Wiki：[函数列表](https://gitee.com/ohhuo/transforms3d_cpp/wikis/pages)
+
+
+
 ## 一、安装与使用
 ### 1.源码引入
 
@@ -26,15 +32,13 @@ sudo ldconfig
 
 
 
-
-
 ## 二、 函数列表
 
 ### 1.基础部分
 
 #### 1.1 角度转换
 
-角度转弧度
+##### 角度转弧度
 
 ```c++
     /**
@@ -45,7 +49,7 @@ sudo ldconfig
     static double Degrees(double angle);
 ```
 
-弧度转角度
+##### 弧度转角度
 
 ```c++
     /**
@@ -58,7 +62,7 @@ sudo ldconfig
 
 #### 1.2 欧拉角部分
 
-角度制欧拉角转旋转矩阵
+##### 角度制欧拉角转旋转矩阵
 
 ```c++
 	/**
@@ -71,7 +75,7 @@ sudo ldconfig
     static Matrix3d EulerAngle2Mat(double rx, double ry, double rz);
 ```
 
-欧拉角转旋转矩阵
+##### 欧拉角转旋转矩阵
 
 ```c++
     /**
@@ -82,7 +86,7 @@ sudo ldconfig
     static Matrix3d EulerAngle2Mat(Vector3d eular);
 ```
 
-欧拉角转四元数
+##### 欧拉角转四元数
 
 ```c++
     /**
@@ -95,7 +99,7 @@ sudo ldconfig
     static Quaterniond Euler2Quat(double rx, double ry, double rz);
 ```
 
-角度制欧拉角转四元数
+##### 角度制欧拉角转四元数
 
 ```c++
     /**
@@ -108,7 +112,7 @@ sudo ldconfig
     static Quaterniond EulerAngle2Quat(double rx, double ry, double rz);
 ```
 
-旋转矩阵转欧拉角（弧度制）
+##### 旋转矩阵转欧拉角（弧度制）
 
 ```c++
     /**
@@ -119,7 +123,7 @@ sudo ldconfig
     static Vector3d Mat2Euler(Matrix3d mat);
 ```
 
-欧拉角转旋转矩阵
+##### 欧拉角转旋转矩阵
 
 ```c++
   /**
@@ -132,7 +136,7 @@ sudo ldconfig
     static Matrix3d Euler2Mat(double rx, double ry, double rz);
 ```
 
-旋转矩阵转角度制欧拉角
+##### 旋转矩阵转角度制欧拉角
 
 ```c++
     /**
@@ -145,7 +149,7 @@ sudo ldconfig
 
 #### 1.3 四元数部分
 
-四元数转旋转矩阵
+##### 四元数转旋转矩阵
 
 ```c++
     /**
@@ -156,7 +160,7 @@ sudo ldconfig
     static Matrix3d Quat2Mat(Quaterniond quat);
 ```
 
-四元数转欧拉角
+##### 四元数转欧拉角
 
 ```c++
     /**
@@ -167,7 +171,7 @@ sudo ldconfig
     static Vector3d Quat2Eular(Quaterniond quat);
 ```
 
-四元数转弧度制欧拉角(角度制)
+##### 四元数转弧度制欧拉角(角度制)
 
 ```c++
     /**
@@ -178,7 +182,7 @@ sudo ldconfig
     static Vector3d Quat2EularAngle(Quaterniond quat);
 ```
 
-四元数转弧度制欧拉角(角度制)
+##### 四元数转弧度制欧拉角(角度制)
 
 ```c++
     /**
@@ -191,7 +195,7 @@ sudo ldconfig
 
 #### 1.4 齐次矩阵部分
 
-通过位置和欧拉角合成一个齐次矩阵
+##### 通过位置和欧拉角合成一个齐次矩阵
 
 ```c++
     /**
@@ -203,7 +207,7 @@ sudo ldconfig
     static Matrix4d Compose(Vector3d positon, Vector3d rotEular);
 ```
 
-通过位置和四元数合成一个齐次矩阵
+##### 通过位置和四元数合成一个齐次矩阵
 
 ```c++
     /**
@@ -215,7 +219,7 @@ sudo ldconfig
     static Matrix4d Compose(Vector3d positon, Quaterniond quat);
 ```
 
-通过三个位置和三个欧拉角合成一个齐次矩阵
+##### 通过三个位置和三个欧拉角合成一个齐次矩阵
 
 ```c++
     /**
@@ -231,7 +235,7 @@ sudo ldconfig
     static Matrix4d ComposeEuler(double x, double y, double z, double rx, double ry, double rz);
 ```
 
-将齐次矩阵转换成平移和欧拉角形式，方便理解
+##### 将齐次矩阵转换成平移和欧拉角形式，方便理解
 
 ```c++
     /**
