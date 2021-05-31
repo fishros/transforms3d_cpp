@@ -2,7 +2,7 @@
  * @Descripttion: TransForms Header
  * @Author: sangxin
  * @Date: 2021-05-01 21:04:19
- * @LastEditTime: 2021-05-02 22:34:48
+ * @LastEditTime: 2021-05-31 14:04:19
  */
  #ifndef __TransForms_H__
  #define __TransForms_H__
@@ -181,11 +181,67 @@ private:
    };
   std::map<std::string,std::vector<Child>> tfg;
 public:
+   /**
+    * @description: 将存储的节点数据按照字符串形式输出
+    * @param {*} 无
+    * @return {std::string}  字符串
+    */
    std::string toString();
+
+   /**
+    * @description: 查找两个节点之间的路径
+    * @param {const std::string&} start  开始节点名字
+    * @param {const std::string&} end  结束节点名字
+    * @return {std::vector<std::string> }  路径数组 
+    */   
    std::vector<std::string> findPath(const std::string& start, const std::string& end);
+
+   /**
+    * @description:  获取两个相关节点的变换关系
+    * @param {const std::string&} start  开始节点名字
+    * @param {const std::string&} end  结束节点名字
+     * @return {Matrix4d} 返回4✖4的齐次变换矩阵
+    */   
    Matrix4d getTransForm(const std::string& start, const std::string& end);
+
+      /**
+    * @description:  添加一个变换关系，通过齐次矩阵
+    * @param {const std::string&} parent  父节点名字
+    * @param {const std::string&} child  子节点名字
+     * @param {Matrix4d} 父节点到子节点之间的变换关系
+     * @return {Matrix4d} 返回4✖4的齐次变换矩阵
+    */   
    Matrix4d pushTransForm(const std::string& parent, const std::string& child,Matrix4d matrix);
+
+
+      /**
+    * @description:  添加一个变换关系，通过位置和欧拉角
+    * @param {const std::string&} parent  父节点名字
+    * @param {const std::string&} child  子节点名字
+     * @param {double&} x 沿x轴的平移
+     * @param {double&} y 沿y轴的平移
+     * @param {double&} z 沿z轴的平移
+     * @param {double&} rx 绕x轴的旋转
+     * @param {double&} ry 绕y轴的旋转
+     * @param {double&} rz 绕z轴的旋转
+     * @return {Matrix4d} 返回4✖4的齐次变换矩阵
+    */   
    Matrix4d pushTransForm(const std::string& parent, const std::string& child,double& x, double& y, double& z, double &rx, double& ry, double & rz);
+
+
+      /**
+    * @description:  添加一个变换关系,通过位置和四元数
+    * @param {const std::string&} parent  父节点名字
+    * @param {const std::string&} child  子节点名字
+     * @param {double&} x 沿x轴的平移
+     * @param {double&} y 沿y轴的平移
+     * @param {double&} z 沿z轴的平移
+     * @param {double&} rx 四元数对应的x
+     * @param {double&} ry 四元数对应的y
+     * @param {double&} 四元数对应的z
+     * @param {double&} 四元数对应的w
+     * @return {Matrix4d} 返回4✖4的齐次变换矩阵
+    */   
    Matrix4d pushTransForm(const std::string& parent, const std::string& child,double& x, double& y, double& z, double &rx, double& ry, double & rz,double & rw);
 };
 
