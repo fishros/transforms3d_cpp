@@ -28,7 +28,43 @@ make
 sudo make install
 sudo ldconfig
 ```
+### 3.使用样例
 
+例子1：利用TransformsGroup进行手眼矩阵估算
+```c++
+/*
+ * @Descripttion: 
+ * @Author: sangxin
+ * @Date: 2021-05-01 21:04:19
+ * @LastEditTime: 2021-05-02 23:39:20
+ */
+#include "math.h"
+#include <iostream>
+#include <TransForms3d/TransForms.h>
+using namespace std;
+using namespace Eigen;
+
+
+int main()
+{
+    /* base@grapper  */
+    Matrix4d Tbg = TransForms::ComposeEuler(-0.544, -0.203,-0.037, 180, 0.00000, 140);
+    /*  camera@maker*/
+    Matrix4d Tcw  = TransForms::ComposeEuler(0.020,-0.040,0.300,0,0,-45);
+    /*  base@bottle  */
+    Matrix4d Tbw  = TransForms::ComposeEuler(-0.663,-0.193,-0.231,-180,0,140);
+
+    TransFormsGroup tfg;
+    tfg.pushTransForm("base","grapper",Tbg);
+    tfg.pushTransForm("camera","bottle",Tcw);
+    tfg.pushTransForm("base","bottle",Tbw);
+
+    cout<<tfg.toString()<<endl;
+    //输出手眼矩阵
+    cout<<TransForms::H2EulerAngle(tfg.getTransForm("grapper","camera"));
+}
+
+```
 
 
 
@@ -248,6 +284,86 @@ sudo ldconfig
 
 ### 2.坐标变换组
 
+#### 2.1 添加坐标转换组
+##### 添加一个变换关系，通过齐次矩阵
+```c++
+/**
+* @description:  添加一个变换关系，通过齐次矩阵
+* @param {const std::string&} parent  父节点名字
+* @param {const std::string&} child  子节点名字
+* @param {Matrix4d} 父节点到子节点之间的变换关系
+* @return {Matrix4d} 返回4✖4的齐次变换矩阵
+*/   
+Matrix4d pushTransForm(const std::string& parent, const std::string& child,Matrix4d matrix);
+```
+
+##### 添加一个变换关系，通过位置和欧拉角
+```c++
+/**
+* @description:  添加一个变换关系，通过位置和欧拉角
+* @param {const std::string&} parent  父节点名字
+* @param {const std::string&} child  子节点名字
+* @param {double&} x 沿x轴的平移
+* @param {double&} y 沿y轴的平移
+* @param {double&} z 沿z轴的平移
+* @param {double&} rx 绕x轴的旋转
+* @param {double&} ry 绕y轴的旋转
+* @param {double&} rz 绕z轴的旋转
+* @return {Matrix4d} 返回4✖4的齐次变换矩阵
+*/   
+Matrix4d pushTransForm(const std::string& parent, const std::string& child,double& x, double& y, double& z, double &rx, double& ry, double & rz);
+```
+
+##### 添加一个变换关系,通过位置和四元数
+```c++
+    /**
+* @description:  添加一个变换关系,通过位置和四元数
+* @param {const std::string&} parent  父节点名字
+* @param {const std::string&} child  子节点名字
+    * @param {double&} x 沿x轴的平移
+    * @param {double&} y 沿y轴的平移
+    * @param {double&} z 沿z轴的平移
+    * @param {double&} rx 四元数对应的x
+    * @param {double&} ry 四元数对应的y
+    * @param {double&} 四元数对应的z
+    * @param {double&} 四元数对应的w
+    * @return {Matrix4d} 返回4✖4的齐次变换矩阵
+*/   
+Matrix4d pushTransForm(const std::string& parent, const std::string& child,double& x, double& y, double& z, double &rx, double& ry, double & rz,double & rw);
+```
+
+#### 2.2 打印坐标转换组
+##### 打印坐标转换组
+```c++
+/**
+* @description: 将存储的节点数据按照字符串形式输出
+* @param {*} 无
+* @return {std::string}  字符串
+*/
+std::string toString();
+```
+
+#### 2.3 查找坐标关系
+##### 获取坐标之间的变换转换关系
+```c++
+/**
+* @description:  获取两个相关节点的变换关系
+* @param {const std::string&} start  开始节点名字
+* @param {const std::string&} end  结束节点名字
+    * @return {Matrix4d} 返回4✖4的齐次变换矩阵
+*/   
+Matrix4d getTransForm(const std::string& start, const std::string& end);
+```
+##### 获取两个节点之间的最短路径
+```c++
+/**
+* @description: 查找两个节点之间的路径
+* @param {const std::string&} start  开始节点名字
+* @param {const std::string&} end  结束节点名字
+* @return {std::vector<std::string> }  路径数组 
+*/   
+std::vector<std::string> findPath(const std::string& start, const std::string& end);
+```
 
 
 ## 三、鸣谢与反馈
