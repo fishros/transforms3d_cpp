@@ -20,9 +20,13 @@ int main()
     /*  base@bottle  */
     Matrix4d Tbw  = TransForms::ComposeEuler(-0.663,-0.193,-0.231,-180,0,140);
 
-    /* grapper@camera */
-    /* Tbw=Tbg*Tgc*Tcw*/
+    TransFormsGroup tfg;
+    tfg.pushTransForm("base","grapper",Tbg);
+    tfg.pushTransForm("camera","bottle",Tcw);
+    tfg.pushTransForm("base","bottle",Tbw);
+
+    cout<<tfg.toString()<<endl;
+    cout<<TransForms::H2EulerAngle(tfg.getTransForm("grapper","camera"));
     Matrix4d Tgc =  Tbg.inverse()*Tbw*Tcw.inverse();
     cout<<TransForms::H2EulerAngle(Tgc);
-
 }

@@ -12,11 +12,13 @@ include_directories(
 add_library(${LIB_NAME}
     SHARED
     TransForms.cpp
+    TransFormsGroup.cpp
 )
 
 add_executable(${PROJECT_NAME} 
     main.cpp
     TransForms.cpp
+    TransFormsGroup.cpp
 )
 
 install (TARGETS ${LIB_NAME}
@@ -26,3 +28,8 @@ install(
     DIRECTORY ${CMAKE_SOURCE_DIR}/include/
     DESTINATION include
     FILES_MATCHING PATTERN "*.h*")
+
+    
+install(TARGETS ${LIB_NAME}
+ DESTINATION ${CMAKE_SOURCE_DIR}
+)

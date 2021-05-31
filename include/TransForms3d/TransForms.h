@@ -4,10 +4,18 @@
  * @Date: 2021-05-01 21:04:19
  * @LastEditTime: 2021-05-02 22:34:48
  */
+ #ifndef __TransForms_H__
+ #define __TransForms_H__
+
 #include "Eigen/Dense"
 #include "Eigen/Geometry"
 #include <iostream>
 #include <math.h>
+#include<vector>
+#include<queue>
+#include<map>
+#include<stack>
+#include<functional>
 using namespace Eigen;
 
 class TransForms
@@ -157,3 +165,28 @@ public:
     TransForms(/* args */) = default;
     ~TransForms() = default;
 };
+
+
+
+class TransFormsGroup
+{
+private:
+   struct Child{
+      std::string name;
+      Matrix4d t;
+   };
+   struct Path{
+      std::string  name;
+      std::vector<std::string>  path;
+   };
+  std::map<std::string,std::vector<Child>> tfg;
+public:
+   std::string toString();
+   std::vector<std::string> findPath(const std::string& start, const std::string& end);
+   Matrix4d getTransForm(const std::string& start, const std::string& end);
+   Matrix4d pushTransForm(const std::string& parent, const std::string& child,Matrix4d matrix);
+   Matrix4d pushTransForm(const std::string& parent, const std::string& child,double& x, double& y, double& z, double &rx, double& ry, double & rz);
+   Matrix4d pushTransForm(const std::string& parent, const std::string& child,double& x, double& y, double& z, double &rx, double& ry, double & rz,double & rw);
+};
+
+#endif
