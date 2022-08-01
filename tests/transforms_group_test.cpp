@@ -2,15 +2,17 @@
  * @Descripttion:
  * @Author: sangxin
  * @Date: 2021-05-01 21:04:19
- * @LastEditTime: 2021-05-03 22:50:04
+ * @LastEditTime: 2021-05-02 23:39:20
  */
-#include "math.h"
-#include <TransForms3d/TransForms.h>
+#include <cmath>
 #include <iostream>
+#include <transforms3d/transforms3d.h>
 using namespace std;
 using namespace Eigen;
 
-int main() {
+#include "gtest/gtest.h"
+
+TEST(TestTransFormGroup, BaseFindPath) {
   /* base@grapper  */
   Matrix4d Tbg =
       TransForms::ComposeEuler(-0.544, -0.203, -0.037, 180, 0.00000, 140);
@@ -19,8 +21,13 @@ int main() {
   /*  base@bottle  */
   Matrix4d Tbw = TransForms::ComposeEuler(-0.663, -0.193, -0.231, -180, 0, 140);
 
-  /* grapper@camera */
-  /* Tbw=Tbg*Tgc*Tcw*/
+  TransFormsGroup tfg;
+  tfg.pushTransForm("base", "grapper", Tbg);
+  tfg.pushTransForm("camera", "bottle", Tcw);
+  tfg.pushTransForm("base", "bottle", Tbw);
+
+  cout << tfg.toString() << endl;
+  cout << TransForms::H2EulerAngle(tfg.getTransForm("grapper", "camera"));
   Matrix4d Tgc = Tbg.inverse() * Tbw * Tcw.inverse();
   cout << TransForms::H2EulerAngle(Tgc);
 }
