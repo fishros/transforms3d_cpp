@@ -33,7 +33,8 @@ Matrix4d TransFormsGroup::pushTransForm(const std::string &parent,
                                         const std::string &child, double &x,
                                         double &y, double &z, double &rx,
                                         double &ry, double &rz) {
-  pushTransForm(parent, child, TransForms::ComposeEuler(x, y, z, rx, ry, rz));
+  return pushTransForm(parent, child,
+                       TransForms::ComposeEuler(x, y, z, rx, ry, rz));
 }
 Matrix4d TransFormsGroup::pushTransForm(const std::string &parent,
                                         const std::string &child, double &x,
@@ -41,7 +42,7 @@ Matrix4d TransFormsGroup::pushTransForm(const std::string &parent,
                                         double &ry, double &rz, double &rw) {
   Vector3d positon(x, y, z);
   Quaterniond quat(rx, ry, rz, rw);
-  pushTransForm(parent, child, TransForms::Compose(positon, quat));
+  return pushTransForm(parent, child, TransForms::Compose(positon, quat));
 }
 Matrix4d TransFormsGroup::pushTransForm(const std::string &parent,
                                         const std::string &child,
@@ -108,6 +109,7 @@ Matrix4d TransFormsGroup::pushTransForm(const std::string &parent,
     new_childs.push_back(new_child);
     tfg[child] = new_childs;
   }
+  return matrix;
 }
 
 std::string TransFormsGroup::toString() {

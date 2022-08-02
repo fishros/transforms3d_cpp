@@ -37,12 +37,12 @@ TEST(TestTransFormGroup, TransPcl2) {
   TransFormsGroup tfg;
   tfg.pushTransForm("base_link", "line_laser1", base2llaser1);
   std::vector<Vector3d> points;
-  for (int i = 0; i < 2; i++) {
+  for (int i = 0; i < 20000; i++) {
     points.push_back({0, 0, (float)(i + 1) / 1000.0});
     printf("%d(%f,%f,%f),", i, points[i].x(), points[i].y(), points[i].z());
   }
   tfg.getTransWithPointCloud("line_laser1", points, "base_link");
-  for (int i = 0; i < 2; i++) {
+  for (int i = 0; i < 20000; i++) {
     printf("%d(%f,%f,%f),", i, points[i].x(), points[i].y(), points[i].z());
     EXPECT_DOUBLE_EQ(points[i].z(), 1 + (float)(i + 1) / 1000.0);
   }

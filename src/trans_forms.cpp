@@ -1,3 +1,9 @@
+/*
+ * @Descripttion: cpp实现
+ * @Author: sangxin
+ * @Date: 2021-05-01 21:04:19
+ * @LastEditTime: 2021-05-02 23:39:20
+ */
 #include <transforms3d/transforms3d.h>
 
 /*---------------------------------------角度弧度转换----------------------------------------*/
@@ -209,7 +215,8 @@ VectorXd TransForms::H2EulerAngle(Matrix4d t) {
  * @param {Matrix4d} 4✖4的齐次变换矩阵
  * @return {VectorXd} x,y,z,rx,ry,rz
  */
-Matrix3d TransForms::HDecompose(Matrix4d t,Matrix3d& rotate,Vector3d& position) {
+Matrix3d TransForms::HDecompose(Matrix4d t, Matrix3d &rotate,
+                                Vector3d &position) {
   rotate = t.block<3, 3>(0, 0);
   position = t.block<3, 1>(0, 3).col(0);
   return rotate;

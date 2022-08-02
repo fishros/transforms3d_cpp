@@ -4,7 +4,7 @@ set(LIB_VERSION 0.1.0)
 set(LIB_NAME  transforms3d_cpp)
 SET(CMAKE_BUILD_TYPE "DEBUG")
 
-# add_compile_options(-Werror)
+add_compile_options(-Werror)
 find_package(Eigen3 REQUIRED)
 include_directories(
     ${EIGEN3_INCLUDE_DIR}
