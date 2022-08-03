@@ -29,7 +29,8 @@ double TransForms::Angle(double degrees) { return degrees / M_PI * 180; }
  * @param {double} rz 绕z轴的旋转.
  * @return {Matrix3d}  返回3✖3的旋转矩阵.
  */
-Matrix3d TransForms::EulerAngle2Mat(double rx, double ry, double rz) {
+Matrix3d TransForms::EulerAngle2Mat(double rx, double ry, double rz)
+{
   rx = Degrees(rx);
   ry = Degrees(ry);
   rz = Degrees(rz);
@@ -45,7 +46,8 @@ Matrix3d TransForms::EulerAngle2Mat(double rx, double ry, double rz) {
  * @param {Vector3d} eular 欧拉角rx,ry,rz
  * @return {Matrix3d} 返回3✖3的旋转矩阵.
  */
-Matrix3d TransForms::Euler2Mat(double rx, double ry, double rz) {
+Matrix3d TransForms::Euler2Mat(double rx, double ry, double rz)
+{
   AngleAxisd rollAngle(AngleAxisd(rx, Vector3d::UnitX()));
   AngleAxisd pitchAngle(AngleAxisd(ry, Vector3d::UnitY()));
   AngleAxisd yawAngle(AngleAxisd(rz, Vector3d::UnitZ()));
@@ -61,7 +63,8 @@ Matrix3d TransForms::Euler2Mat(double rx, double ry, double rz) {
  * @param {double} rz 绕z轴的旋转
  * @return {Quaterniond} 返回对应的四元数
  */
-Quaterniond TransForms::Euler2Quat(double rx, double ry, double rz) {
+Quaterniond TransForms::Euler2Quat(double rx, double ry, double rz)
+{
   return Eigen::AngleAxisd(rx, ::Eigen::Vector3d::UnitX()) *
          Eigen::AngleAxisd(ry, ::Eigen::Vector3d::UnitY()) *
          Eigen::AngleAxisd(rz, ::Eigen::Vector3d::UnitZ());
@@ -74,7 +77,8 @@ Quaterniond TransForms::Euler2Quat(double rx, double ry, double rz) {
  * @param {double} rz 绕z轴的旋转
  * @return {Quaterniond} 返回对应的四元数
  */
-Quaterniond TransForms::EulerAngle2Quat(double rx, double ry, double rz) {
+Quaterniond TransForms::EulerAngle2Quat(double rx, double ry, double rz)
+{
   rx = Degrees(rx);
   ry = Degrees(ry);
   rz = Degrees(rz);
@@ -87,8 +91,9 @@ Quaterniond TransForms::EulerAngle2Quat(double rx, double ry, double rz) {
  * @param {Matrix3d} 3✖3的旋转矩阵
  * @return {Vector3d} 欧拉角
  */
-Vector3d TransForms::Mat2Euler(Matrix3d mat) {
-  return mat.eulerAngles(2, 1, 0);
+Vector3d TransForms::Mat2Euler(Matrix3d mat)
+{
+  return mat.eulerAngles(0, 1, 2);
 }
 
 /**
@@ -98,7 +103,8 @@ Vector3d TransForms::Mat2Euler(Matrix3d mat) {
  * @param {double} rz 绕z轴的旋转
  * @return {*}
  */
-Matrix3d TransForms::EulerAngle2Mat(Vector3d eular) {
+Matrix3d TransForms::EulerAngle2Mat(Vector3d eular)
+{
   return EulerAngle2Mat(eular.x(), eular.y(), eular.z());
 }
 
@@ -107,8 +113,9 @@ Matrix3d TransForms::EulerAngle2Mat(Vector3d eular) {
  * @param {Matrix3d} 3✖3的旋转矩阵
  * @return {Vector3d}  欧拉角
  */
-Vector3d TransForms::Mat2EulerAngle(Matrix3d mat) {
-  Vector3d rot = mat.eulerAngles(0, 1, 2);
+Vector3d TransForms::Mat2EulerAngle(Matrix3d mat)
+{
+  Vector3d rot = mat.eulerAngles(2, 1, 0);
   rot = rot / M_PI * 180;
   return rot;
 }
@@ -126,7 +133,8 @@ Matrix3d TransForms::Quat2Mat(Quaterniond quat) { return quat.matrix(); }
  * @param {Quaterniond} 四元数
  * @return {Vector3d} 对应的欧拉角
  */
-Vector3d TransForms::Quat2Eular(Quaterniond quat) {
+Vector3d TransForms::Quat2Eular(Quaterniond quat)
+{
   return Mat2Euler(quat.matrix());
 }
 
@@ -135,7 +143,8 @@ Vector3d TransForms::Quat2Eular(Quaterniond quat) {
  * @param {Quaterniond} 四元数
  * @return {Vector3d} 对应的欧拉角
  */
-Vector3d TransForms::Quat2EularAngle(Quaterniond quat) {
+Vector3d TransForms::Quat2EularAngle(Quaterniond quat)
+{
   return Mat2EulerAngle(quat.matrix());
 }
 
@@ -153,7 +162,8 @@ Quaterniond TransForms::Mat2Quat(Matrix3d mat) { return Quaterniond(mat); }
  * @param {Vector3d} rotEular  旋转变换(欧拉角形式)
  * @return {*}
  */
-Matrix4d TransForms::Compose(Vector3d positon, Vector3d rotEular) {
+Matrix4d TransForms::Compose(Vector3d positon, Vector3d rotEular)
+{
   Matrix3d rot = TransForms::EulerAngle2Mat(rotEular);
   // std::cout<<Mat2EulerAngle(rot);
   Matrix4d t;
@@ -169,7 +179,8 @@ Matrix4d TransForms::Compose(Vector3d positon, Vector3d rotEular) {
  * @param {Quaterniond} quat 四元数
  * @return {Matrix4d} 齐次矩阵
  */
-Matrix4d TransForms::Compose(Vector3d positon, Quaterniond quat) {
+Matrix4d TransForms::Compose(Vector3d positon, Quaterniond quat)
+{
   return Compose(positon, Quat2Eular(quat));
 }
 
@@ -185,7 +196,8 @@ Matrix4d TransForms::Compose(Vector3d positon, Quaterniond quat) {
  */
 Matrix4d TransForms::ComposeEuler(const double x, const double y,
                                   const double z, const double rx,
-                                  const double ry, const double rz) {
+                                  const double ry, const double rz)
+{
   Eigen::Vector3d rot(rx, ry, rz);
   Eigen::Vector3d pos(x, y, z);
   return TransForms::Compose(pos, rot);
@@ -196,7 +208,8 @@ Matrix4d TransForms::ComposeEuler(const double x, const double y,
  * @param {Matrix4d} 4✖4的齐次变换矩阵
  * @return {VectorXd} x,y,z,rx,ry,rz
  */
-VectorXd TransForms::H2EulerAngle(Matrix4d t) {
+VectorXd TransForms::H2EulerAngle(Matrix4d t)
+{
   VectorXd pose = VectorXd(6);
   Matrix3d mt = t.block<3, 3>(0, 0);
   Vector3d p3 = t.block<3, 1>(0, 3).col(0);
@@ -216,7 +229,8 @@ VectorXd TransForms::H2EulerAngle(Matrix4d t) {
  * @return {VectorXd} x,y,z,rx,ry,rz
  */
 Matrix3d TransForms::HDecompose(Matrix4d t, Matrix3d &rotate,
-                                Vector3d &position) {
+                                Vector3d &position)
+{
   rotate = t.block<3, 3>(0, 0);
   position = t.block<3, 1>(0, 3).col(0);
   return rotate;
