@@ -24,7 +24,6 @@ TEST(TestTransForm, Euler2Mat)
     std::cout << matrix.eulerAngles(2, 1, 0).format(HeavyFmt) << sep;
 
     std::cout << rotr.x() << " " << rotr.y() << " " << rotr.z() << std::endl;
-    //   return TransForms::Compose(pos, rot);
     /* base@llaser1  */
     Matrix4d base2llaser1 = TransForms::ComposeEuler(0.043, -0.163, 0.0571, 76, 14, -72.511); // xyz yam pitch roll
     std::cout << base2llaser1.format(HeavyFmt) << sep;

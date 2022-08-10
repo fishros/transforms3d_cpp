@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.4.1)
 project(transforms3d_cpp)
 set(LIB_VERSION 0.1.0)
 set(LIB_NAME  transforms3d_cpp)
-SET(CMAKE_BUILD_TYPE "DEBUG")
+SET(CMAKE_BUILD_TYPE "RELEASE")
 
 add_compile_options(-Werror)
 find_package(Eigen3 REQUIRED)

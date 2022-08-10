@@ -1,72 +1,124 @@
+
+大家好,我是小鱼,最近因为工作上的需要,把自己一两年前做的开源库又进行了维护,新增了点云坐标转换功能,小鱼测试速度可以嗖嗖的.再次分享给大家.
+
+这个库功能和ROS的TF相似,但完全基于Eigen实现,不用像ROS那样需要很多依赖,在自己开发机器人和导航系统的时候会派上用场.
+
+开源地址1:https://gitee.com/ohhuo/transforms3d_cpp
+开源地址2:https://github.com/fishros/transforms3d_cpp
+
 # 基于Eigen的坐标转换库-TransForms3d
+
 - 实现一个更强大的坐标转换组，可以进行坐标关系推算，解放你的笔头和双手
+- 增加点云转换函数,可以将点云从一个坐标系转到任意一个关联坐标系
 - 实现欧拉角与旋转矩阵的互相转换，欧拉角到四元数的转换
 - 实现四元数与旋转矩阵的互相转换，四元数到欧拉角的转换
-- 实现通过齐次矩阵合成与部分转换
-- 持续更新中..........
-
+- 实现通过齐次矩阵合成与转换
 
 
 Git：[仓库地址](https://gitee.com/ohhuo/transforms3d_cpp) | Wiki：[函数列表](https://gitee.com/ohhuo/transforms3d_cpp/wikis/pages)
 
 
-
 ## 一、安装与使用
+
 ### 1.源码引入
 
-复制TransForms.cpp和TransForms.h到你的工程即可
+复制`trans_forms_group.cpp`,`trans_forms.cpp`,`transforms3d.h`到你的工程即可
 
 ### 2.编译安装
 
 ```
 git clone https://gitee.com/ohhuo/transforms3d_cpp.git
 cd transforms3d_cpp
-mkdir build 
-cd build
+mkdir build && cd build
 cmake ..
-make
 sudo make install
 sudo ldconfig
 ```
 ### 3.使用样例
 
 例子1：利用TransformsGroup进行手眼矩阵估算
+
 ```c++
 /*
- * @Descripttion: 
+ * @Descripttion:
  * @Author: sangxin
  * @Date: 2021-05-01 21:04:19
  * @LastEditTime: 2021-05-02 23:39:20
  */
-#include "math.h"
+#include <cmath>
 #include <iostream>
-#include <TransForms3d/TransForms.h>
+#include <transforms3d/transforms3d.h>
 using namespace std;
 using namespace Eigen;
 
+#include "gtest/gtest.h"
 
-int main()
-{
-    /* base@grapper  */
-    Matrix4d Tbg = TransForms::ComposeEuler(-0.544, -0.203,-0.037, 180, 0.00000, 140);
-    /*  camera@maker*/
-    Matrix4d Tcw  = TransForms::ComposeEuler(0.020,-0.040,0.300,0,0,-45);
-    /*  base@bottle  */
-    Matrix4d Tbw  = TransForms::ComposeEuler(-0.663,-0.193,-0.231,-180,0,140);
+TEST(TestTransFormGroup, BaseFindPath) {
+  /* base@grapper  */
+  Matrix4d Tbg =
+      TransForms::ComposeEuler(-0.544, -0.203, -0.037, 180, 0.00000, 140);
+  /*  camera@maker*/
+  Matrix4d Tcw = TransForms::ComposeEuler(0.020, -0.040, 0.300, 0, 0, -45);
+  /*  base@bottle  */
+  Matrix4d Tbw = TransForms::ComposeEuler(-0.663, -0.193, -0.231, -180, 0, 140);
 
-    TransFormsGroup tfg;
-    tfg.pushTransForm("base","grapper",Tbg);
-    tfg.pushTransForm("camera","bottle",Tcw);
-    tfg.pushTransForm("base","bottle",Tbw);
+  TransFormsGroup tfg;
+  tfg.pushTransForm("base", "grapper", Tbg);
+  tfg.pushTransForm("camera", "bottle", Tcw);
+  tfg.pushTransForm("base", "bottle", Tbw);
 
-    cout<<tfg.toString()<<endl;
-    //输出手眼矩阵
-    cout<<TransForms::H2EulerAngle(tfg.getTransForm("grapper","camera"));
+  cout << tfg.toString() << endl;
+  cout << TransForms::H2EulerAngle(tfg.getTransForm("grapper", "camera"));
+  Matrix4d Tgc = Tbg.inverse() * Tbw * Tcw.inverse();
+  cout << TransForms::H2EulerAngle(Tgc);
 }
-
 ```
 
+例子2:使用TransformsGroup进行点云坐标转换
 
+```cpp
+  /* base@llaser1  */
+  Matrix4d base2llaser1 = TransForms::ComposeEuler(0, 0, 0, 180, 0, 0);
+
+  TransFormsGroup tfg;
+  tfg.pushTransForm("base_link", "laser", base2llaser1);
+  std::vector<Vector3d> points;
+  for (int i = 0; i < 2; i++)
+  {
+    points.push_back({0, 0, (float)(i + 1) / 1000.0});
+    printf("%d(%f,%f,%f),", i, points[i].x(), points[i].y(), points[i].z());
+  }
+  tfg.getTransWithPointCloud("laser", points, "base_link");
+  for (int i = 0; i < 2; i++)
+  {
+    printf("%d(%f,%f,%f),", i, points[i].x(), points[i].y(), points[i].z());
+    EXPECT_DOUBLE_EQ(points[i].z(), -(float)(i + 1) / 1000.0);
+  }
+```
+
+例子3: 欧拉角转换
+
+```cpp
+#include "gtest/gtest.h"
+
+TEST(TestTransForm, Euler2Mat)
+{
+    IOFormat HeavyFmt(FullPrecision, 0, ", ", ";\n", "[", "]", "[", "]");
+    std::string sep = "\n----------------------------------------\n";
+
+    Eigen::Vector3d rot(76, 14, -72.511); // r p y
+    Matrix3d matrix = TransForms::EulerAngle2Mat(rot);
+    Vector3d rotr = TransForms::Mat2EulerAngle(matrix);
+    std::cout << matrix.format(HeavyFmt) << sep;
+    std::cout << matrix.eulerAngles(2, 1, 0).format(HeavyFmt) << sep;
+
+    std::cout << rotr.x() << " " << rotr.y() << " " << rotr.z() << std::endl;
+    /* base@llaser1  */
+    Matrix4d base2llaser1 = TransForms::ComposeEuler(0.043, -0.163, 0.0571, 76, 14, -72.511); // xyz yam pitch roll
+    std::cout << base2llaser1.format(HeavyFmt) << sep;
+    // base2llaser1
+}
+```
 
 ## 二、 函数列表
 
@@ -370,13 +422,11 @@ std::vector<std::string> findPath(const std::string& start, const std::string& e
 
 ### 1. 贡献
 
-- 作者:桑欣 | Autor:SangXin
-- 邮箱 | Email 2876424407@qq.com
-
-
+- 作者:小鱼 | Autor:fishros
+- 邮箱 | Email fishros@foxmail.com
 
 ## 2. 反馈
 
-- 直接将问题发送至邮箱2876424407@qq.com
+- 在鱼香社区提问(fishros.org.cn)
 - 提出Issuce
 
