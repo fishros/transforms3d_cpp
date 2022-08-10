@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/build/transforms3d_cpp_test",
             "args": [
-                "--gtest_filter=TestTransFormGroup.TransPcl",
+                "--gtest_filter=TestKDTREE.TestSearch",
             ],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
