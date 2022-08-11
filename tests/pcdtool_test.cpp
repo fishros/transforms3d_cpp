@@ -24,14 +24,13 @@ TEST(TestPcdTool, TestRadiusFilter)
     }
     pcd.pts.push_back({0, 2.0, 1 / 1000.0});
 
-    RadiusFilter(pcd, cloud_filted, 0.1, 4);
-
     printf("\n=====滤波前=====\n");
     for (int i = 0; i < pcd.pts.size(); i++)
     {
         printf("%d(%f,%f,%f),", i, pcd.pts[i].x(), pcd.pts[i].y(),
                pcd.pts[i].z());
     }
+    RadiusFilter(pcd, cloud_filted, 0.1, 2);
     printf("\n=====滤波后=====\n");
     for (int i = 0; i < cloud_filted.pts.size(); i++)
     {
